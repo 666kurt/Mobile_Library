@@ -40,9 +40,5 @@ struct MockData {
         [objects, recomendation]
     }
     
-    var detailData: [ListItem] = {
-        return [.init(title: "test", image: "chemical")]
-    }()
-    
 }
 

@@ -31,7 +31,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getData()
+        APIManager.shared.getData()
         
         setDelegates()
         setupView()

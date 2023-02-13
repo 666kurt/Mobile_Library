@@ -13,12 +13,13 @@ struct ListItem {
     let image: String
 
 }
-
-struct ListBook {
-    
-    let title: String
-    let author: String
-    let image: String
-
-}
+//
+//struct Book: Codable {
+//
+//    let title: String
+//    let author: String
+//    let image: String
+//    let url: String
+//
+//}
 

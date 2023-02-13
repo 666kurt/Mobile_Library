@@ -9,6 +9,8 @@ import UIKit
 
 class BooksViewController: UIViewController {
     
+    var books: [Book] = []
+    
     private let booksCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -62,11 +64,13 @@ extension BooksViewController: UICollectionViewDelegateFlowLayout, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        books.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! BooksCollectionViewCell
+        let book = books[indexPath.item]
+        cell.configureCell(image: book.image, title: book.name, author: book.author)
         cell.backgroundColor = .white
         cell.layer.cornerRadius = 8
         return cell

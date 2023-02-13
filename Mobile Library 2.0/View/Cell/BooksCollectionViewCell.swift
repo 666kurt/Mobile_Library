@@ -41,6 +41,12 @@ class BooksCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    func configureCell(image: String, title: String, author: String) {
+        bookImage.image = UIImage(named: image)
+        bookTitle.text = title
+        bookAuthor.text = author
+    }
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
