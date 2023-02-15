@@ -8,42 +8,54 @@
 import Foundation
 import FirebaseFirestore
 
-struct Books: Codable {
-    let math: Book
-    let english: Book
-    let literature: Book
-}
-
 struct Book: Codable {
-    let name: String
+    var id: String
+    let title: String
     let author: String
     let url: String
     let image: String
-}
-
     
-func getData() {
-    
-    let db = Firestore.firestore()
-    
-    db.collection("books").getDocuments() { (querySnapshot, err) in
-        if let err = err {
-            print("Error getting documents: \(err)")
-        } else {
-            for document in querySnapshot!.documents {
-                
-                let data = document.data()
-                
-                let bookTitle = data["title"] as? String ?? ""
-                let bookAuthor = data["author"] as? String ?? ""
-                let bookImage = data["image"] as? String ?? ""
-                let bookUrl = data["url"] as? String ?? ""
-                
-                let books = Book(name: bookTitle, author: bookAuthor, url: bookUrl, image: bookImage)
-                print(books)
-
-            }
-        }
+    init(id: String, title: String, author: String, url: String, image: String) {
+        self.id = id
+        self.title = title
+        self.author = author
+        self.image = image
+        self.url = url
     }
 }
+
+
+
+class APIManager {
+
+    static let shared = APIManager()
+
+    var book = [Book]()
+    
+    func fetchBook(documentId: String) {
+        
+        var book = [Book]()
+        
+        let db = Firestore.firestore()
+        let docRef = db.collection("books").document(documentId)
+
+        docRef.getDocument { document, error in
+            if let error = error as NSError? {
+                print("Error getting document: \(error.localizedDescription)")
+            } else {
+                if let document = document {
+                    do {
+                        self.book = try document.data(as: Book.self)
+                    } catch {
+                        print(error)
+                    }
+          }
+        }
+      }
+    }
+
+
+
+}
+
 
