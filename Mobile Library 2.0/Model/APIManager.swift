@@ -8,20 +8,10 @@
 import Foundation
 import FirebaseFirestore
 
-struct Book: Codable {
-    var id: String
-    let title: String
+struct Book {
     let author: String
+    let title: String
     let url: String
-    let image: String
-    
-    init(id: String, title: String, author: String, url: String, image: String) {
-        self.id = id
-        self.title = title
-        self.author = author
-        self.image = image
-        self.url = url
-    }
 }
 
 
@@ -29,32 +19,30 @@ struct Book: Codable {
 class APIManager {
 
     static let shared = APIManager()
-
-    var book = [Book]()
     
-    func fetchBook(documentId: String) {
+    private func configureFB() -> Firestore {
         
-        var book = [Book]()
+        let db: Firestore!
+        let setting = FirestoreSettings()
+        Firestore.firestore().settings = setting
+        db = Firestore.firestore()
         
-        let db = Firestore.firestore()
-        let docRef = db.collection("books").document(documentId)
-
-        docRef.getDocument { document, error in
-            if let error = error as NSError? {
-                print("Error getting document: \(error.localizedDescription)")
-            } else {
-                if let document = document {
-                    do {
-                        self.book = try document.data(as: Book.self)
-                    } catch {
-                        print(error)
-                    }
-          }
-        }
-      }
+        return db
     }
 
-
+    func getPost(collection: String, docName: String, completion: @escaping (Book?) -> Void) {
+        
+        let db = configureFB()
+        db.collection(collection).document().getDocument(completion: { (document, error) in
+            guard error == nil else { completion(nil); return }
+            let document = Book(author: document?.get("author") as! String,
+                                title: document?.get("title") as! String,
+                                url: document?.get("url") as! String)
+            print(document)
+            completion(document)
+        })
+        
+    }
 
 }
 

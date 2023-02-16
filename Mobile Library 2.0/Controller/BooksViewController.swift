@@ -9,8 +9,6 @@ import UIKit
 
 class BooksViewController: UIViewController {
     
-    var bookModel = APIManager.shared
-    
     private let booksCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -22,8 +20,6 @@ class BooksViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        bookModel.getData()
 
         view.backgroundColor = #colorLiteral(red: 0.9688282609, green: 0.9691237807, blue: 0.9782338738, alpha: 1)
         
