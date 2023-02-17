@@ -35,11 +35,12 @@ class APIManager {
     }
     
     
-    func fetchData() {
+    func fetchData(completion: @escaping ([Book]?) -> Void) {
         
         let db = configureFB()
         
         db.collection("books").getDocuments { (querySnapshot, error) in
+            
             guard let document = querySnapshot?.documents else {
                 print("no document")
                 return
@@ -48,8 +49,7 @@ class APIManager {
             self.books = document.compactMap { (queryDocumentSnapshot) -> Book? in
                 return try? queryDocumentSnapshot.data(as: Book.self)
             }
-            print(self.books)
-            
+            completion(self.books)
         }
     }
     

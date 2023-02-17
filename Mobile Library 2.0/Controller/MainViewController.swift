@@ -30,8 +30,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        APIManager.shared.fetchData()
     
         setDelegates()
         setupView()

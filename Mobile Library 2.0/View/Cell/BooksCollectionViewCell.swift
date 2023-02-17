@@ -41,8 +41,7 @@ class BooksCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    func configureCell(image: String, title: String, author: String) {
-        bookImage.image = UIImage(named: image)
+    func configureCell(title: String, author: String) {
         bookTitle.text = title
         bookAuthor.text = author
     }
