@@ -7,6 +7,7 @@ target 'Mobile Library 2.0' do
   pod 'Firebase'
   pod 'Firebase/Core'
   pod 'Firestore'
+  pod 'FirebaseFirestoreSwift'
 
   # Pods for Mobile Library 2.0
 

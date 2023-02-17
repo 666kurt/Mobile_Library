@@ -31,10 +31,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        APIManager.shared.getPost(collection: "books", docName: "SHmWO9ZZyw1cuWHH56cU") { doc in
-            guard doc != nil else { return }
-            print(doc!)
-        }
+        APIManager.shared.fetchData()
     
         setDelegates()
         setupView()

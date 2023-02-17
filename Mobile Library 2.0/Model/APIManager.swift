@@ -7,8 +7,10 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 
-struct Book {
+struct Book: Codable {
+    @DocumentID var id: String? = UUID().uuidString
     let author: String
     let title: String
     let url: String
@@ -17,6 +19,8 @@ struct Book {
 
 
 class APIManager {
+    
+    @Published var books = [Book]()
 
     static let shared = APIManager()
     
@@ -29,20 +33,38 @@ class APIManager {
         
         return db
     }
-
-    func getPost(collection: String, docName: String, completion: @escaping (Book?) -> Void) {
+    
+    
+    func fetchData() {
         
         let db = configureFB()
-        db.collection(collection).document().getDocument(completion: { (document, error) in
-            guard error == nil else { completion(nil); return }
-            let document = Book(author: document?.get("author") as! String,
-                                title: document?.get("title") as! String,
-                                url: document?.get("url") as! String)
-            print(document)
-            completion(document)
-        })
         
+        db.collection("books").getDocuments { (querySnapshot, error) in
+            guard let document = querySnapshot?.documents else {
+                print("no document")
+                return
+            }
+            
+            self.books = document.compactMap { (queryDocumentSnapshot) -> Book? in
+                return try? queryDocumentSnapshot.data(as: Book.self)
+            }
+            print(self.books)
+            
+        }
     }
+    
+
+//    func getPost(collection: String, docName: String, completion: @escaping (Book?) -> Void) {
+//
+//        let db = configureFB()
+//        db.collection(collection).document().getDocument(completion: { (document, error) in
+//            guard error == nil else { completion(nil); return }
+//
+//            print(document)
+//            completion(document)
+//        })
+//
+//    }
 
 }
 
