@@ -21,7 +21,6 @@ class BooksCollectionViewCell: UICollectionViewCell {
     
     private var bookTitle: UILabel = {
         let label = UILabel()
-        label.text = "Title"
         label.font = UIFont(name: "Avenir Bold", size: 16)
         label.textColor = .black
         label.numberOfLines = 2
@@ -32,7 +31,6 @@ class BooksCollectionViewCell: UICollectionViewCell {
     
     private var bookAuthor: UILabel = {
         let label = UILabel()
-        label.text = "Author"
         label.font = UIFont(name: "Avenir", size: 12)
         label.textColor = .black
         label.numberOfLines = 2
@@ -44,6 +42,7 @@ class BooksCollectionViewCell: UICollectionViewCell {
     func configureCell(title: String, author: String) {
         bookTitle.text = title
         bookAuthor.text = author
+
     }
     
     

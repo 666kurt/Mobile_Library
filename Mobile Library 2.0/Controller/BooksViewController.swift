@@ -83,7 +83,14 @@ extension BooksViewController: UICollectionViewDelegateFlowLayout, UICollectionV
         cell.layer.cornerRadius = 8
         return cell
     }
-     
-
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let bookInfo = books[indexPath.row]
+        let vc = PDFViewController()
+        vc.title = bookInfo.title
+        vc.openBook(url: bookInfo.url)
+        print(bookInfo.url)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 

@@ -10,6 +10,7 @@
 		63087C0A29A0100200A99C1E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 63087C0929A0100200A99C1E /* FirebaseFirestore */; };
 		63087C0C29A0100200A99C1E /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 63087C0B29A0100200A99C1E /* FirebaseFirestoreSwift */; };
 		63087C0E29A0100200A99C1E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 63087C0D29A0100200A99C1E /* FirebaseStorage */; };
+		63087C1029A1427400A99C1E /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63087C0F29A1427400A99C1E /* PDFViewController.swift */; };
 		6315E0822994099B00585F5A /* BooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6315E0812994099B00585F5A /* BooksViewController.swift */; };
 		6320CA032927EE400090B768 /* DetailCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6320CA022927EE400090B768 /* DetailCollectionViewController.swift */; };
 		6389E3AB28FC5961003A7CE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6389E3AA28FC5961003A7CE3 /* AppDelegate.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		63087C0F29A1427400A99C1E /* PDFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewController.swift; sourceTree = "<group>"; };
 		6315E0812994099B00585F5A /* BooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksViewController.swift; sourceTree = "<group>"; };
 		6320CA022927EE400090B768 /* DetailCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCollectionViewController.swift; sourceTree = "<group>"; };
 		6389E3A728FC5961003A7CE3 /* Mobile Library 2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Library 2.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,6 +139,7 @@
 				6320CA022927EE400090B768 /* DetailCollectionViewController.swift */,
 				6315E0812994099B00585F5A /* BooksViewController.swift */,
 				6389E3AE28FC5961003A7CE3 /* MainViewController.swift */,
+				63087C0F29A1427400A99C1E /* PDFViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				6389E3CC28FC7C9D003A7CE3 /* ObjectCollectionViewCell.swift in Sources */,
 				6389E3C928FC6201003A7CE3 /* MockData.swift in Sources */,
 				6389E3AF28FC5961003A7CE3 /* MainViewController.swift in Sources */,
+				63087C1029A1427400A99C1E /* PDFViewController.swift in Sources */,
 				63E445092994FB64007D9615 /* BooksCollectionViewCell.swift in Sources */,
 				6389E3AB28FC5961003A7CE3 /* AppDelegate.swift in Sources */,
 				6389E3D028FC8EBD003A7CE3 /* HeaderSupplementaryView.swift in Sources */,
