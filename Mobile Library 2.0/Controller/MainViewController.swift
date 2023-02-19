@@ -135,7 +135,7 @@ extension MainViewController {
                                           interGroupSpacing: 20,
                                           supplementaryItem: [SupplementaryHeaderItem()],
                                           contentInsert: false)
-        section.contentInsets = .init(top: 10, leading: 10, bottom: 0, trailing: 10)
+        section.contentInsets = .init(top: 10, leading: 10, bottom: 0, trailing: 0)
         return section
     }
 }
@@ -220,8 +220,8 @@ extension MainViewController {
         NSLayoutConstraint.activate([
             
             collectionView.topAnchor.constraint(equalTo: headerImageView.bottomAnchor, constant: 20),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
             
             headerImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
