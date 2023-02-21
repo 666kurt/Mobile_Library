@@ -27,6 +27,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     }()
     
     private let sections = MockData.shared.pageData
+    private let books: [Book] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,17 +157,20 @@ extension MainViewController: UICollectionViewDataSource {
             vc.title = objects[indexPath.row].title
             navigationController?.pushViewController(vc, animated: true)
         case .recomendation(_):
-            print("test")
+            print("tap")
         }
         
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
+        
         return sections.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         sections[section].count
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

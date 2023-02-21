@@ -7,16 +7,6 @@
 
 import Foundation
 import FirebaseFirestore
-import FirebaseFirestoreSwift
-
-struct Book: Codable {
-    @DocumentID var id: String? = UUID().uuidString
-    let author: String
-    let title: String
-    let url: String
-}
-
-
 
 class APIManager {
     
@@ -49,22 +39,10 @@ class APIManager {
             self.books = document.compactMap { (queryDocumentSnapshot) -> Book? in
                 return try? queryDocumentSnapshot.data(as: Book.self)
             }
+            print(self.books)
             completion(self.books)
         }
     }
-    
-
-//    func getPost(collection: String, docName: String, completion: @escaping (Book?) -> Void) {
-//
-//        let db = configureFB()
-//        db.collection(collection).document().getDocument(completion: { (document, error) in
-//            guard error == nil else { completion(nil); return }
-//
-//            print(document)
-//            completion(document)
-//        })
-//
-//    }
 
 }
 

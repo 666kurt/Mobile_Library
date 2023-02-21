@@ -89,7 +89,6 @@ extension BooksViewController: UICollectionViewDelegateFlowLayout, UICollectionV
         let vc = PDFViewController()
         vc.title = bookInfo.title
         vc.openBook(url: bookInfo.url)
-        print(bookInfo.url)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
