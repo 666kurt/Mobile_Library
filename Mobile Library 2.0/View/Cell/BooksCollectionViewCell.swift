@@ -21,20 +21,20 @@ class BooksCollectionViewCell: UICollectionViewCell {
     
     private var bookTitle: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Avenir Bold", size: 16)
+        label.font = UIFont(name: "Avenir Bold", size: 18)
         label.textColor = .black
-        label.numberOfLines = 2
-        label.textAlignment = .center
+        label.numberOfLines = 3
+        label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private var bookAuthor: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Avenir", size: 12)
+        label.font = UIFont(name: "Avenir", size: 14)
         label.textColor = .black
-        label.numberOfLines = 2
-        label.textAlignment = .center
+        label.numberOfLines = 3
+        label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -76,16 +76,16 @@ extension BooksCollectionViewCell {
         
             bookImage.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             bookImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            bookImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            bookImage.heightAnchor.constraint(equalToConstant: 200),
+            bookImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+            bookImage.widthAnchor.constraint(equalToConstant: 120),
             
-            bookTitle.topAnchor.constraint(equalTo: bookImage.bottomAnchor, constant: 2),
-            bookTitle.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            bookTitle.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            bookTitle.leadingAnchor.constraint(equalTo: bookImage.trailingAnchor, constant: 8),
             bookTitle.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             
-            bookAuthor.topAnchor.constraint(equalTo: bookTitle.bottomAnchor, constant: 2),
-            bookAuthor.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            bookAuthor.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            bookAuthor.topAnchor.constraint(equalTo: bookTitle.bottomAnchor, constant: 8),
+            bookAuthor.leadingAnchor.constraint(equalTo: bookImage.trailingAnchor, constant: 8),
+            bookAuthor.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
         
         ])
     }

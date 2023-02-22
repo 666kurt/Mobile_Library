@@ -18,6 +18,7 @@ struct Book: Codable {
     let author: String
     let title: String
     let url: String
+    let category: String
 }
 
 enum Categories {

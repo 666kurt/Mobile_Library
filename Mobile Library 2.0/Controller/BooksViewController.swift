@@ -66,9 +66,9 @@ extension BooksViewController {
 extension BooksViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width: CGFloat = collectionView.frame.width/2 - 8
+        let width: CGFloat = collectionView.frame.width - 20
         
-        return CGSize(width: width, height: width*1.5)
+        return CGSize(width: width, height: width*0.55)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
