@@ -70,7 +70,7 @@ class PDFViewController: UIViewController, WKNavigationDelegate {
     // MARK: - WKNavigationDelegate
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        activityIndicator.startAnimating()
+        activityIndicator.stopAnimating()
     }
 }
 

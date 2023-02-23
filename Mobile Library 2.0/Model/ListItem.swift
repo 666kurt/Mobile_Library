@@ -20,13 +20,3 @@ struct Book: Codable {
     let url: String
     let category: String
 }
-
-enum Categories {
-    case Math([Book])
-    case Geometry([Book])
-    case Literature([Book])
-    case Chemical([Book])
-    case Physical([Book])
-    case History([Book])
-}
-

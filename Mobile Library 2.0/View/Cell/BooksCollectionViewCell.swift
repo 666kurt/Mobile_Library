@@ -42,7 +42,6 @@ class BooksCollectionViewCell: UICollectionViewCell {
     func configureCell(title: String, author: String) {
         bookTitle.text = title
         bookAuthor.text = author
-
     }
     
     
