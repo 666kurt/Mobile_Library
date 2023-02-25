@@ -85,10 +85,21 @@ extension BooksViewController: UICollectionViewDelegateFlowLayout, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let bookInfo = books[indexPath.row]
+        
         let vc = PDFViewController()
+        
+        let firstSection = books.filter { $0.category == "math" }
+        let secondSection = books.filter { $0.category == "eng" }
+        let thirdSection = books.filter { $0.category == "chemical" }
+        let fourthSection = books.filter { $0.category == "literature" }
+        let fifthSection = books.filter { $0.category == "geography" }
+        let sixthSection = books.filter { $0.category == "physical" }
+        
+        let bookInfo = books[indexPath.row]
+        
         vc.title = bookInfo.title
         vc.openBook(url: bookInfo.url)
+        
         navigationController?.pushViewController(vc, animated: true)
     }
 }
