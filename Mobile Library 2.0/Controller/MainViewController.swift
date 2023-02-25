@@ -9,6 +9,10 @@ import UIKit
 
 class MainViewController: UIViewController, UICollectionViewDelegate {
     
+    lazy var firstSection: [Book] = {
+        books.filter { $0.category == "math" }
+    }()
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -27,7 +31,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     }()
     
     private let sections = MockData.shared.pageData
-    private let books: [Book] = []
+    private var books: [Book] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +39,14 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         setDelegates()
         setupView()
         setConstraint()
+        
+        APIManager.shared.fetchData { [weak self] book in
+            DispatchQueue.main.async {
+                guard let self else { return }
+                self.books = book!
+                self.collectionView.reloadData()
+            }
+        }
         
     }
     
@@ -154,6 +166,7 @@ extension MainViewController: UICollectionViewDataSource {
             
         case .objects(let objects):
             let vc = BooksViewController()
+            vc.books = firstSection
             vc.title = objects[indexPath.row].title
             navigationController?.pushViewController(vc, animated: true)
         case .recomendation(_):

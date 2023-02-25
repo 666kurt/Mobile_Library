@@ -12,28 +12,20 @@ struct MockData {
     static let shared = MockData()
     
     private let objects: ListSection = {
-        .objects([.init(title: "Алгебра", image: "math"),
-                  .init(title: "Английский", image: "english"),
-                  .init(title: "Химия", image: "chemical"),
-                  .init(title: "Литература", image: "literature"),
-                  .init(title: "География", image: "geography"),
-                  .init(title: "Физика", image: "physical")])
+        .objects([.init(title: "Алгебра", image: "math", id: 1),
+                  .init(title: "Английский", image: "english", id: 2),
+                  .init(title: "Химия", image: "chemical", id: 3),
+                  .init(title: "Литература", image: "literature", id: 4),
+                  .init(title: "География", image: "geography", id: 5),
+                  .init(title: "Физика", image: "physical", id: 6)])
         }()
     
     private let recomendation: ListSection = {
-        .recomendation([.init(title: "Алгебра", image: "algebraBook"),
-                        .init(title: "Физика", image: "fizikaBook"),
-                        .init(title: "Литература", image: "literatureBook"),
-                        .init(title: "Геометрия", image: "geometryBook"),
-                        .init(title: "Английский язык", image: "spotlightBook")])
-    }()
-    
-    private let books: ListSection = {
-        .recomendation([.init(title: "Book1", image: "algebraBook"),
-                        .init(title: "Book2", image: "fizikaBook"),
-                        .init(title: "Book3", image: "literatureBook"),
-                        .init(title: "Book4", image: "geometryBook"),
-                        .init(title: "Book5", image: "spotlightBook")])
+        .recomendation([.init(title: "Алгебра", image: "algebraBook", id: 1),
+                        .init(title: "Физика", image: "fizikaBook", id: 2),
+                        .init(title: "Литература", image: "literatureBook", id: 3),
+                        .init(title: "Геометрия", image: "geometryBook", id: 4),
+                        .init(title: "Английский язык", image: "spotlightBook", id: 5)])
     }()
     
     var pageData: [ListSection] {

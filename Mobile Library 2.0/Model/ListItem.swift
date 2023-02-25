@@ -11,6 +11,7 @@ import FirebaseFirestoreSwift
 struct ListItem {
     let title: String
     let image: String
+    let id: Int
 }
 
 struct Book: Codable {

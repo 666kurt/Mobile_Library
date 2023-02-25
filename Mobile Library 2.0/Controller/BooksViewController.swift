@@ -9,7 +9,13 @@ import UIKit
 
 class BooksViewController: UIViewController {
     
-    private var books: [Book] = []
+//    let secondSection =
+//    let thirdSection =
+//    let fourthSection =
+//    let fifthSection =
+//    let sixthSection =
+    
+    var books: [Book] = []
     
     private let booksCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -28,14 +34,7 @@ class BooksViewController: UIViewController {
         setupViews()
         setConstraints()
         setDelegates()
-        
-        APIManager.shared.fetchData { [weak self] book in
-            DispatchQueue.main.async {
-                guard let self else { return }
-                self.books = book!
-                self.booksCollectionView.reloadData()
-            }
-        }
+
 
     }
     
@@ -87,13 +86,6 @@ extension BooksViewController: UICollectionViewDelegateFlowLayout, UICollectionV
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let vc = PDFViewController()
-        
-        let firstSection = books.filter { $0.category == "math" }
-        let secondSection = books.filter { $0.category == "eng" }
-        let thirdSection = books.filter { $0.category == "chemical" }
-        let fourthSection = books.filter { $0.category == "literature" }
-        let fifthSection = books.filter { $0.category == "geography" }
-        let sixthSection = books.filter { $0.category == "physical" }
         
         let bookInfo = books[indexPath.row]
         
