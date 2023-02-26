@@ -9,12 +9,6 @@ import UIKit
 
 class BooksViewController: UIViewController {
     
-//    let secondSection =
-//    let thirdSection =
-//    let fourthSection =
-//    let fifthSection =
-//    let sixthSection =
-    
     var books: [Book] = []
     
     private let booksCollectionView: UICollectionView = {

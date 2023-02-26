@@ -13,6 +13,26 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         books.filter { $0.category == "math" }
     }()
     
+    lazy var secondSection: [Book] = {
+        books.filter { $0.category == "eng" }
+    }()
+    
+    lazy var thirdSection: [Book] = {
+        books.filter { $0.category == "chemical" }
+    }()
+    
+    lazy var fourthSection: [Book] = {
+        books.filter { $0.category == "literature" }
+    }()
+    
+    lazy var fifthSection: [Book] = {
+        books.filter { $0.category == "geography" }
+    }()
+    
+    lazy var sixthSection: [Book] = {
+        books.filter { $0.category == "physical" }
+    }()
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -165,8 +185,23 @@ extension MainViewController: UICollectionViewDataSource {
         switch sections[indexPath.section] {
             
         case .objects(let objects):
+                    
             let vc = BooksViewController()
-            vc.books = firstSection
+            
+            if objects[indexPath.row].id == 1 {
+                vc.books = firstSection
+            } else if objects[indexPath.row].id == 2 {
+                vc.books = secondSection
+            } else if objects[indexPath.row].id == 3 {
+                vc.books = thirdSection
+            } else if objects[indexPath.row].id == 4 {
+                vc.books = fourthSection
+            } else if objects[indexPath.row].id == 5 {
+                vc.books = fifthSection
+            } else if objects[indexPath.row].id == 6 {
+                vc.books = sixthSection
+            }
+            
             vc.title = objects[indexPath.row].title
             navigationController?.pushViewController(vc, animated: true)
         case .recomendation(_):
