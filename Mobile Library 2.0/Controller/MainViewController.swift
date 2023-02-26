@@ -187,21 +187,19 @@ extension MainViewController: UICollectionViewDataSource {
         case .objects(let objects):
                     
             let vc = BooksViewController()
+            let categoryID = objects[indexPath.row].id
             
-            if objects[indexPath.row].id == 1 {
-                vc.books = firstSection
-            } else if objects[indexPath.row].id == 2 {
-                vc.books = secondSection
-            } else if objects[indexPath.row].id == 3 {
-                vc.books = thirdSection
-            } else if objects[indexPath.row].id == 4 {
-                vc.books = fourthSection
-            } else if objects[indexPath.row].id == 5 {
-                vc.books = fifthSection
-            } else if objects[indexPath.row].id == 6 {
-                vc.books = sixthSection
+            switch categoryID {
+            case 1: vc.books = firstSection
+            case 2: vc.books = secondSection
+            case 3: vc.books = thirdSection
+            case 4: vc.books = fourthSection
+            case 5: vc.books = fifthSection
+            case 6: vc.books = sixthSection
+            default:
+                return
             }
-            
+    
             vc.title = objects[indexPath.row].title
             navigationController?.pushViewController(vc, animated: true)
         case .recomendation(_):

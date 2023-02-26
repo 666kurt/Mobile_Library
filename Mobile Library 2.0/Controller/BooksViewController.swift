@@ -71,7 +71,7 @@ extension BooksViewController: UICollectionViewDelegateFlowLayout, UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! BooksCollectionViewCell
         let book = books[indexPath.row]
-        cell.configureCell(title: book.title, author: book.author)
+        cell.configureCell(title: book.title, author: book.author, image: book.image)
         cell.backgroundColor = .white
         cell.layer.cornerRadius = 8
         return cell

@@ -11,8 +11,8 @@ class BooksCollectionViewCell: UICollectionViewCell {
     
     private var bookImage: UIImageView = {
        let image = UIImageView()
-        image.image = UIImage(named: "algebraBook")
         image.layer.cornerRadius = 8
+        image.backgroundColor = .secondarySystemBackground
         image.contentMode = .scaleToFill
         image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -39,9 +39,10 @@ class BooksCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    func configureCell(title: String, author: String) {
+    func configureCell(title: String, author: String, image: URL) {
         bookTitle.text = title
         bookAuthor.text = author
+        bookImage.load(url: image)
     }
     
     
