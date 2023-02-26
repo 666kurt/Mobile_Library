@@ -33,6 +33,10 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         books.filter { $0.category == "physical" }
     }()
     
+    lazy var recomendationSection: [Book] = {
+        books.filter { $0.isRecommended == true }
+    }()
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -202,8 +206,9 @@ extension MainViewController: UICollectionViewDataSource {
     
             vc.title = objects[indexPath.row].title
             navigationController?.pushViewController(vc, animated: true)
-        case .recomendation(_):
-            print("tap")
+        case .recomendation(let recomendation):
+            let vc = PDFViewController()
+            print(recomendationSection)
         }
         
     }

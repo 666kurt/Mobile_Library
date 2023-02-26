@@ -47,6 +47,7 @@ class RecomendationCollectionViewCell: UICollectionViewCell {
     }
     
     func configureCell(recomendationBookImage: String, bookTitle: String) {
+//        recomendationImageView.load(url: recomendationBookImage)
         recomendationImageView.image = UIImage(named: recomendationBookImage)
         recomendationBookLabel.text = bookTitle
     }

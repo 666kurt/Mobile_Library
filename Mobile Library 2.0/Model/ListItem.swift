@@ -21,4 +21,5 @@ struct Book: Codable {
     let url: String
     let image: URL
     let category: String
+    let isRecommended: Bool
 }
