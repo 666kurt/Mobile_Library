@@ -33,11 +33,16 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         books.filter { $0.category == "physical" }
     }()
     
+    lazy var recomendationSection: [Book] = {
+        books.filter { $0.isRecommended == true }
+    }()
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .none
         collectionView.bounces = false
+        collectionView.isScrollEnabled = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -51,11 +56,17 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     }()
     
     private let sections = MockData.shared.pageData
-    private var books: [Book] = []
+    private var books: [Book] = [] {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
+        print(recomendationSection)
+        
         setDelegates()
         setupView()
         setConstraint()
@@ -64,7 +75,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             DispatchQueue.main.async {
                 guard let self else { return }
                 self.books = book!
-                self.collectionView.reloadData()
+//                self.collectionView.reloadData()
             }
         }
     }
@@ -213,9 +224,10 @@ extension MainViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        sections[section].count
-        
+
+//        return sections[section].count
+        print(recomendationSection)
+        return section == 0 ? sections[section].count : recomendationSection.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -233,6 +245,8 @@ extension MainViewController: UICollectionViewDataSource {
             cell.layer.shadowOpacity = 1
             cell.layer.shadowRadius = 9
             cell.layer.shadowOffset = CGSize(width: 0, height: 2)
+            
+            
             cell.configureCell(objectName: objects[indexPath.row].title,
                                imageName: objects[indexPath.row].image)
             return cell
@@ -244,12 +258,6 @@ extension MainViewController: UICollectionViewDataSource {
             else {
                 return UICollectionViewCell()
             }
-            
-            lazy var recomendationSection: [Book] = {
-                books.filter { $0.isRecommended == true }
-            }()
-            
-            print(recomendationSection)
     
             cell.layer.cornerRadius = 8
             cell.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.06).cgColor
@@ -257,8 +265,9 @@ extension MainViewController: UICollectionViewDataSource {
             cell.layer.shadowRadius = 9
             cell.layer.shadowOffset = CGSize(width: 0, height: 2)
             cell.backgroundColor = .white
-            cell.configureCell(recomendationBookImage: recomendation[indexPath.row].image,
-                               bookTitle: recomendation[indexPath.row].title)
+            
+            cell.configureCell(recomendationBookImage: recomendationSection[indexPath.row].image,
+                               bookTitle: recomendationSection[indexPath.row].title)
             return cell
         }
     }
