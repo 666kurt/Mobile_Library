@@ -44,7 +44,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     
     private let headerImageView: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "bg2")
+        image.image = UIImage(named: "background")
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleToFill
         return image
@@ -159,7 +159,7 @@ extension MainViewController {
                                                             heightDimension: .fractionalHeight(0.5)))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.44),
-                                                                         heightDimension: .fractionalHeight(0.88)),
+                                                                         heightDimension: .fractionalHeight(0.95)),
                                                        subitems: [item])
         
         let section = createLayoutSection(group: group,
@@ -289,12 +289,12 @@ extension MainViewController {
             collectionView.topAnchor.constraint(equalTo: headerImageView.bottomAnchor, constant: 20),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
             
             headerImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
             headerImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             headerImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            headerImageView.heightAnchor.constraint(equalToConstant: 170)
+            headerImageView.heightAnchor.constraint(equalToConstant: 225)
         ])
     }
 }
