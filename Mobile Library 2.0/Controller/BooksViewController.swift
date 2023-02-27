@@ -15,7 +15,7 @@ class BooksViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = #colorLiteral(red: 0.9688282609, green: 0.9691237807, blue: 0.9782338738, alpha: 1)
+        collectionView.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.9647058824, alpha: 1)
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
@@ -23,7 +23,7 @@ class BooksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = #colorLiteral(red: 0.9688282609, green: 0.9691237807, blue: 0.9782338738, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.9647058824, alpha: 1)
         
         setupViews()
         setConstraints()
@@ -74,6 +74,10 @@ extension BooksViewController: UICollectionViewDelegateFlowLayout, UICollectionV
         cell.configureCell(title: book.title, author: book.author, image: book.image)
         cell.backgroundColor = .white
         cell.layer.cornerRadius = 8
+        cell.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.06).cgColor
+        cell.layer.shadowOpacity = 1
+        cell.layer.shadowRadius = 9
+        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
         return cell
     }
     

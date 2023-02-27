@@ -12,7 +12,7 @@ class BooksCollectionViewCell: UICollectionViewCell {
     private var bookImage: UIImageView = {
        let image = UIImageView()
         image.layer.cornerRadius = 8
-        image.backgroundColor = .secondarySystemBackground
+        image.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.9647058824, alpha: 1)
         image.contentMode = .scaleToFill
         image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -59,8 +59,6 @@ class BooksCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupViews() {
-        
-        backgroundColor = .red
         
         addSubview(bookImage)
         addSubview(bookTitle)

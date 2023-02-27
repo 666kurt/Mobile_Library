@@ -12,18 +12,38 @@ class RecomendationCollectionViewCell: UICollectionViewCell {
     private let recomendationImageView: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "algebraBook")
-        image.contentMode = .scaleAspectFill
+        image.contentMode = .scaleToFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
+    }()
+    
+    private let backgroundBookView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 6
+        view.clipsToBounds = true
+        view.backgroundColor = .secondarySystemBackground
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private let recomendationBookLabel: UILabel = {
         let label = UILabel()
         label.text = "Алгебра"
         label.numberOfLines = 2
-        label.font = UIFont(name: "Avenir", size: 13)
-        label.textAlignment = .center
+        label.font = UIFont(name: "Avenir Bold", size: 14)
+        label.textAlignment = .left
         label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let recomendationAuthorLabel: UILabel = {
+        let label = UILabel()
+        label.text = "А. С. Пушкин"
+        label.numberOfLines = 2
+        label.font = UIFont(name: "Avenir", size: 11)
+        label.textAlignment = .left
+        label.textColor = #colorLiteral(red: 0.6465258002, green: 0.6465258002, blue: 0.6465258002, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -42,12 +62,14 @@ class RecomendationCollectionViewCell: UICollectionViewCell {
     
     private func setupView() {
         
+        addSubview(backgroundBookView)
+        backgroundBookView.addSubview(recomendationImageView)
         addSubview(recomendationBookLabel)
-        addSubview(recomendationImageView)
+        addSubview(recomendationAuthorLabel)
     }
     
     func configureCell(recomendationBookImage: String, bookTitle: String) {
-//        recomendationImageView.load(url: recomendationBookImage)
+        //    recomendationImageView.load(url: recomendationBookImage)
         recomendationImageView.image = UIImage(named: recomendationBookImage)
         recomendationBookLabel.text = bookTitle
     }
@@ -60,15 +82,24 @@ extension RecomendationCollectionViewCell {
         
         NSLayoutConstraint.activate([
             
-            recomendationImageView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            recomendationImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            recomendationImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            recomendationImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            backgroundBookView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            backgroundBookView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            backgroundBookView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            backgroundBookView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -98),
             
-            recomendationBookLabel.topAnchor.constraint(equalTo: recomendationImageView.bottomAnchor, constant: 10),
-            recomendationBookLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            recomendationBookLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            recomendationBookLabel.heightAnchor.constraint(equalToConstant: 16)
+            recomendationImageView.topAnchor.constraint(equalTo: backgroundBookView.topAnchor, constant: 20),
+            recomendationImageView.leadingAnchor.constraint(equalTo: backgroundBookView.leadingAnchor, constant: 20),
+            recomendationImageView.trailingAnchor.constraint(equalTo: backgroundBookView.trailingAnchor, constant: -20),
+            recomendationImageView.bottomAnchor.constraint(equalTo: backgroundBookView.bottomAnchor, constant: -20),
+            
+            recomendationBookLabel.topAnchor.constraint(equalTo: backgroundBookView.bottomAnchor, constant: 10),
+            recomendationBookLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            recomendationBookLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            
+            recomendationAuthorLabel.topAnchor.constraint(equalTo: recomendationBookLabel.bottomAnchor, constant: 10),
+            recomendationAuthorLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            recomendationAuthorLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+
                 
         ])
     }

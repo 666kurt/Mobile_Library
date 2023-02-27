@@ -39,7 +39,6 @@ class APIManager {
             self.books = document.compactMap { (queryDocumentSnapshot) -> Book? in
                 return try? queryDocumentSnapshot.data(as: Book.self)
             }
-            print(self.books)
             completion(self.books)
         }
     }

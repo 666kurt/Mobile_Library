@@ -33,10 +33,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         books.filter { $0.category == "physical" }
     }()
     
-    lazy var recomendationSection: [Book] = {
-        books.filter { $0.isRecommended == true }
-    }()
-    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -48,7 +44,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     
     private let headerImageView: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "headerimageview")
+        image.image = UIImage(named: "bg2")
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleToFill
         return image
@@ -71,7 +67,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
                 self.collectionView.reloadData()
             }
         }
-        
     }
     
     private func setDelegates() {
@@ -81,7 +76,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     
     private func setupView() {
         
-        view.backgroundColor = #colorLiteral(red: 0.9688282609, green: 0.9691237807, blue: 0.9782338738, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.9647058824, alpha: 1)
         
         view.addSubview(collectionView)
         view.addSubview(headerImageView)
@@ -151,10 +146,10 @@ extension MainViewController {
         
         let section = createLayoutSection(group: group,
                                           behavior: .none,
-                                          interGroupSpacing: 30,
+                                          interGroupSpacing: 16,
                                           supplementaryItem: [SupplementaryHeaderItem()],
                                           contentInsert: false)
-        section.contentInsets = .init(top: 0, leading: 10, bottom: 20, trailing: 10)
+        section.contentInsets = .init(top: 10, leading: 16, bottom: 16, trailing: 16)
         return section
     }
     
@@ -163,16 +158,16 @@ extension MainViewController {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
                                                             heightDimension: .fractionalHeight(0.5)))
         
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.3),
-                                                                         heightDimension: .fractionalHeight(0.5)),
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.44),
+                                                                         heightDimension: .fractionalHeight(0.88)),
                                                        subitems: [item])
         
         let section = createLayoutSection(group: group,
                                           behavior: .continuous,
-                                          interGroupSpacing: 20,
+                                          interGroupSpacing: 10,
                                           supplementaryItem: [SupplementaryHeaderItem()],
                                           contentInsert: false)
-        section.contentInsets = .init(top: 10, leading: 10, bottom: 0, trailing: 0)
+        section.contentInsets = .init(top: 10, leading: 16, bottom: 0, trailing: 0)
         return section
     }
 }
@@ -208,7 +203,6 @@ extension MainViewController: UICollectionViewDataSource {
             navigationController?.pushViewController(vc, animated: true)
         case .recomendation(let recomendation):
             let vc = PDFViewController()
-            print(recomendationSection)
         }
         
     }
@@ -234,6 +228,11 @@ extension MainViewController: UICollectionViewDataSource {
             else {
                 return UICollectionViewCell()
             }
+            cell.layer.cornerRadius = 8
+            cell.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.06).cgColor
+            cell.layer.shadowOpacity = 1
+            cell.layer.shadowRadius = 9
+            cell.layer.shadowOffset = CGSize(width: 0, height: 2)
             cell.configureCell(objectName: objects[indexPath.row].title,
                                imageName: objects[indexPath.row].image)
             return cell
@@ -245,6 +244,19 @@ extension MainViewController: UICollectionViewDataSource {
             else {
                 return UICollectionViewCell()
             }
+            
+            lazy var recomendationSection: [Book] = {
+                books.filter { $0.isRecommended == true }
+            }()
+            
+            print(recomendationSection)
+    
+            cell.layer.cornerRadius = 8
+            cell.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.06).cgColor
+            cell.layer.shadowOpacity = 1
+            cell.layer.shadowRadius = 9
+            cell.layer.shadowOffset = CGSize(width: 0, height: 2)
+            cell.backgroundColor = .white
             cell.configureCell(recomendationBookImage: recomendation[indexPath.row].image,
                                bookTitle: recomendation[indexPath.row].title)
             return cell
