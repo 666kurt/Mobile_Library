@@ -33,9 +33,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         books.filter { $0.category == "physical" }
     }()
     
-    lazy var recomendationSection: [Book] = {
-        books.filter { $0.isRecommended == true }
-    }()
+    var recomendationSection: [Book] = []
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -58,6 +56,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     private let sections = MockData.shared.pageData
     private var books: [Book] = [] {
         didSet {
+            recomendationSection = books.filter { $0.isRecommended == true }
             self.collectionView.reloadData()
         }
     }
@@ -75,7 +74,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             DispatchQueue.main.async {
                 guard let self else { return }
                 self.books = book!
-//                self.collectionView.reloadData()
             }
         }
     }
@@ -212,8 +210,12 @@ extension MainViewController: UICollectionViewDataSource {
     
             vc.title = objects[indexPath.row].title
             navigationController?.pushViewController(vc, animated: true)
-        case .recomendation(let recomendation):
+        case .recomendation(_):
             let vc = PDFViewController()
+            let recommendationInfo = recomendationSection[indexPath.row]
+            vc.openBook(url: recommendationInfo.url)
+            vc.title = recommendationInfo.title
+            navigationController?.pushViewController(vc, animated: true)
         }
         
     }
@@ -224,17 +226,15 @@ extension MainViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
-//        return sections[section].count
-        print(recomendationSection)
+        
         return section == 0 ? sections[section].count : recomendationSection.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        switch sections[indexPath.section] {
+        switch indexPath.section {
             
-        case .objects(let objects):
+        case 0:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "idObjectCollectionViewCell",
                                                                 for: indexPath) as? ObjectCollectionViewCell
             else {
@@ -246,12 +246,13 @@ extension MainViewController: UICollectionViewDataSource {
             cell.layer.shadowRadius = 9
             cell.layer.shadowOffset = CGSize(width: 0, height: 2)
             
+            let objects = sections[0].items[indexPath.row]
             
-            cell.configureCell(objectName: objects[indexPath.row].title,
-                               imageName: objects[indexPath.row].image)
+            cell.configureCell(objectName: objects.title,
+                               imageName: objects.image)
             return cell
 
-        case .recomendation(let recomendation):
+        case 1:
             guard let cell = collectionView.dequeueReusableCell(
                                                                 withReuseIdentifier: "idRecomendationCollectionViewCell",
                                                                 for: indexPath) as? RecomendationCollectionViewCell
@@ -266,9 +267,14 @@ extension MainViewController: UICollectionViewDataSource {
             cell.layer.shadowOffset = CGSize(width: 0, height: 2)
             cell.backgroundColor = .white
             
-            cell.configureCell(recomendationBookImage: recomendationSection[indexPath.row].image,
-                               bookTitle: recomendationSection[indexPath.row].title)
+            let recommendation = recomendationSection[indexPath.row]
+            
+            cell.configureCell(recomendationBookImage: recommendation.image,
+                               bookTitle: recommendation.title)
             return cell
+            
+        default:
+            return UICollectionViewCell()
         }
     }
     
