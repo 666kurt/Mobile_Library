@@ -53,6 +53,21 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         return image
     }()
     
+    private let searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.text = "Поиск"
+        searchBar.keyboardType = .alphabet
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        return searchBar
+    }()
+    
+    private let logoImage: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "logo")
+        image.translatesAutoresizingMaskIntoConstraints = false
+       return image
+    }()
+    
     private let sections = MockData.shared.pageData
     private var books: [Book] = [] {
         didSet {
@@ -88,7 +103,9 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.9647058824, alpha: 1)
         
         view.addSubview(collectionView)
+        view.addSubview(logoImage)
         view.addSubview(headerImageView)
+        view.addSubview(searchBar)
         
         collectionView.register(ObjectCollectionViewCell.self,
                                 forCellWithReuseIdentifier: "idObjectCollectionViewCell")
@@ -168,7 +185,7 @@ extension MainViewController {
                                                             heightDimension: .fractionalHeight(0.5)))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.44),
-                                                                         heightDimension: .fractionalHeight(0.95)),
+                                                                         heightDimension: .fractionalHeight(1)),
                                                        subitems: [item])
         
         let section = createLayoutSection(group: group,
@@ -309,7 +326,12 @@ extension MainViewController {
             headerImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
             headerImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             headerImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            headerImageView.heightAnchor.constraint(equalToConstant: 225)
+            headerImageView.heightAnchor.constraint(equalToConstant: 225),
+            
+            
+            searchBar.topAnchor.constraint(equalTo: headerImageView.bottomAnchor, constant: 0),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
         ])
     }
 }
