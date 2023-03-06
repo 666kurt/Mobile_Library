@@ -38,7 +38,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .none
+        collectionView.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.9647058824, alpha: 1)
         collectionView.bounces = false
         collectionView.isScrollEnabled = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -53,20 +53,31 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         return image
     }()
     
-    private let searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.text = "Поиск"
-        searchBar.keyboardType = .alphabet
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        return searchBar
-    }()
-    
     private let logoImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "logo")
+        image.contentMode = .scaleToFill
         image.translatesAutoresizingMaskIntoConstraints = false
        return image
     }()
+    
+    private let mainLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Мобильная библиотека"
+        label.font = UIFont(name: "SF Pro Display", size: 16)
+        label.textColor = #colorLiteral(red: 0.2658094764, green: 0.3961576819, blue: 0.4681692719, alpha: 1)
+        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+//    private let searchBar: UISearchBar = {
+//       let bar = UISearchBar()
+//        bar.placeholder = "Поиск"
+//        bar.searchBarStyle = .minimal
+//        bar.translatesAutoresizingMaskIntoConstraints = false
+//        return bar
+//    }()
     
     private let sections = MockData.shared.pageData
     private var books: [Book] = [] {
@@ -78,8 +89,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(recomendationSection)
         
         setDelegates()
         setupView()
@@ -100,12 +109,12 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     
     private func setupView() {
         
-        view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.9647058824, alpha: 1)
+        view.backgroundColor = .white
         
-        view.addSubview(collectionView)
+        view.addSubview(mainLabel)
         view.addSubview(logoImage)
-        view.addSubview(headerImageView)
         view.addSubview(searchBar)
+        view.addSubview(collectionView)
         
         collectionView.register(ObjectCollectionViewCell.self,
                                 forCellWithReuseIdentifier: "idObjectCollectionViewCell")
@@ -117,7 +126,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         collectionView.collectionViewLayout = createLayout()
     }
 }
-
 
 // MARK: - Create layout
 
@@ -154,10 +162,9 @@ extension MainViewController {
     
     private func SupplementaryHeaderItem() -> NSCollectionLayoutBoundarySupplementaryItem {
         .init(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                heightDimension: .estimated(30)),
+                                heightDimension: .estimated(60)),
               elementKind: UICollectionView.elementKindSectionHeader,
               alignment: .top)
-        
     }
     
     private func createObjectSection() -> NSCollectionLayoutSection {
@@ -175,7 +182,7 @@ extension MainViewController {
                                           interGroupSpacing: 16,
                                           supplementaryItem: [SupplementaryHeaderItem()],
                                           contentInsert: false)
-        section.contentInsets = .init(top: 10, leading: 16, bottom: 16, trailing: 16)
+        section.contentInsets = .init(top: 0, leading: 16, bottom: 10, trailing: 16)
         return section
     }
     
@@ -185,7 +192,7 @@ extension MainViewController {
                                                             heightDimension: .fractionalHeight(0.5)))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.44),
-                                                                         heightDimension: .fractionalHeight(1)),
+                                                                         heightDimension: .fractionalHeight(0.86)),
                                                        subitems: [item])
         
         let section = createLayoutSection(group: group,
@@ -193,13 +200,10 @@ extension MainViewController {
                                           interGroupSpacing: 10,
                                           supplementaryItem: [SupplementaryHeaderItem()],
                                           contentInsert: false)
-        section.contentInsets = .init(top: 10, leading: 16, bottom: 0, trailing: 0)
+        section.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 0)
         return section
     }
 }
-
-
-
 
 // MARK: - UICollectionViewDataSource
 
@@ -318,20 +322,30 @@ extension MainViewController {
     private func setConstraint() {
         NSLayoutConstraint.activate([
             
-            collectionView.topAnchor.constraint(equalTo: headerImageView.bottomAnchor, constant: 20),
+            logoImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 64),
+            logoImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            logoImage.heightAnchor.constraint(equalToConstant: 29),
+            logoImage.widthAnchor.constraint(equalToConstant: 36),
+            
+            mainLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+            mainLabel.leadingAnchor.constraint(equalTo: logoImage.trailingAnchor, constant: 8),
+            mainLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            
+            searchBar.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 15),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            searchBar.heightAnchor.constraint(equalToConstant: 36),
+            
+            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 10),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
             
-            headerImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
-            headerImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            headerImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            headerImageView.heightAnchor.constraint(equalToConstant: 225),
+//            headerImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+//            headerImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+//            headerImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+//            headerImageView.heightAnchor.constraint(equalToConstant: 225),
             
-            
-            searchBar.topAnchor.constraint(equalTo: headerImageView.bottomAnchor, constant: 0),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
         ])
     }
 }
